@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh; /* Ensure the entire viewport height is covered */
+            margin: 0;
+            background-color: #f2f2f2; /* Set background color */
+            background-image: url(/bg.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        h1 {
+            color: #333;
+        }
+        #temperatureInput {
+            margin-bottom: 20px;
+            padding: 10px; /* Add padding for better input field appearance */
+            border: 2px solid #ccc;
+            border-radius: 5px; /* Rounded corners for input field */
+            font-size: 16px; /* Increase font size for better readability */
+        }
+        #unitSelector {
+            margin-bottom: 25px;
+            padding: 10px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        #result {
+            font-size: 18px; /* Adjust font size for result display */
+            width: 70%;
+            padding: 15px;
+            border: 2px solid #ccc;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            text-align: center; /* Center-align the result text */
+        }
+        button {
+            padding: 10px 20px; /* Add padding to the button for better clickability */
+            font-size: 16px;
+            background-color: #333; /* Change button background color */
+            color: #fff; /* Change button text color to white */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #555; /* Change button color on hover */
+        }
+    </style>
+</head>
+<body>
+    <h1>Temperature Converter</h1>
+    
+    <input type="text" id="temperatureInput" placeholder="Enter temperature">
+    
+    <select id="unitSelector">
+        <option value="celsius">Celsius</option>
+        <option value="fahrenheit">Fahrenheit</option>
+        <option value="kelvin">Kelvin</option>
+    </select>
+    
+    <button onclick="convertTemperature()">Convert</button>
+    
+    <div id="result"></div>
+    
+    <script>
+        function convertTemperature() {
+            const temperatureInput = document.getElementById("temperatureInput").value;
+            const unitSelector = document.getElementById("unitSelector");
+            const selectedUnit = unitSelector.options[unitSelector.selectedIndex].value;
+            const resultElement = document.getElementById("result");
+
+            if (isNaN(temperatureInput)) {
+                resultElement.innerHTML = "Please enter a valid number.";
+                return;
+            }
+
+            const temperature = parseFloat(temperatureInput);
+
+            if (selectedUnit === "celsius") {
+                const fahrenheit = (temperature * 9/5) + 32;
+                const kelvin = temperature + 273.15;
+                resultElement.innerHTML = `${temperature} Celsius is ${fahrenheit.toFixed(2)} Fahrenheit and ${kelvin.toFixed(2)} Kelvin.`;
+            } else if (selectedUnit === "fahrenheit") {
+                const celsius = (temperature - 32) * 5/9;
+                const kelvin = (temperature - 32) * 5/9 + 273.15;
+                resultElement.innerHTML = `${temperature} Fahrenheit is ${celsius.toFixed(2)} Celsius and ${kelvin.toFixed(2)} Kelvin.`;
+            } else if (selectedUnit === "kelvin") {
+                const celsius = temperature - 273.15;
+                const fahrenheit = (temperature - 273.15) * 9/5 + 32;
+                resultElement.innerHTML = `${temperature} Kelvin is ${celsius.toFixed(2)} Celsius and ${fahrenheit.toFixed(2)} Fahrenheit.`;
+            }
+        }
+    </script>
+</body>
+</html>
